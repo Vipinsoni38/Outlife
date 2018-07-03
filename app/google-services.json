@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "482015713626",
+    "firebase_url": "https://outlife-526b3.firebaseio.com",
+    "project_id": "outlife-526b3",
+    "storage_bucket": "outlife-526b3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:482015713626:android:56967893367acba5",
+        "android_client_info": {
+          "package_name": "boat.golden.outlife"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "482015713626-tualkqnqqmio93j0pa7c02m3fjoja1vh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "boat.golden.outlife",
+            "certificate_hash": "e4ae061598a5983dbc498a80d8491f8ce51a3ae2"
+          }
+        },
+        {
+          "client_id": "482015713626-3u7adotjb4c05epp83eguuuvs4fsog9r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCby7vQEM8w3KVxa39r3ghJcUEyFmKr_LY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "482015713626-3u7adotjb4c05epp83eguuuvs4fsog9r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
