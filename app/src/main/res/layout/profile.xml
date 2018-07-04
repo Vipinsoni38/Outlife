@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+
+
+
+
+<ImageView
+    android:layout_width="300dp"
+    android:layout_height="300dp"
+    android:src="@drawable/capture"
+    android:layout_gravity="center_horizontal"
+    android:padding="2dp"
+    android:layout_margin="2dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp"
+            android:text="Vipin Soni"
+            android:id="@+id/profile_name"
+            android:layout_centerHorizontal="true"
+            android:textSize="24sp"
+            android:textColor="#000000"
+
+            />
+<ImageView
+    android:layout_width="18dp"
+    android:layout_height="18dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="4dp"
+    android:src="@drawable/pencil_edit"
+    android:layout_toRightOf="@+id/profile_name"/>
+
+            </RelativeLayout>
+
+<TextView
+    android:layout_width="270dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:text="a short bio.
+     .djkdnkjsnk dkjsnkjdsn kdjnjkdsnndkj ksdjdsjkndkj kjsdndjnkdjs jdkndjknds kjdnkjs kjdnsnkdj kjdsnkj dkjd ksjn "
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_horizontal"
+    android:id="@+id/bio"/>
+
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

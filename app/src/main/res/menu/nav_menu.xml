@@ -2,16 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:title="Test 1" />
+            android:id="@+id/home"
+            android:title="Home" />
 
         <item
-            android:title="Test 1" />
+            android:id="@+id/explore"
+            android:title="Explore" />
 
         <item
-            android:title="Test 1" />
+            android:id="@+id/bookmarks"
+
+            android:title="Bookmarks" />
 
         <item
-            android:title="Test 1" />
+            android:id="@+id/profie"
+
+            android:title="My Profile" />
     </group>
 </menu>
