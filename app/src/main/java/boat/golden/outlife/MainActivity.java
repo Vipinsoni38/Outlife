@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences=getSharedPreferences("login",MODE_PRIVATE);
         Boolean islogin=sharedPreferences.getBoolean("IsLogin",false);
-        if (islogin==false)
+        if (!islogin)
         {
         Intent i=new Intent(this,Login_main.class);
         startActivity(i);}
