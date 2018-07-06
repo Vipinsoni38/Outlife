@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_main_1_1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:background="?attr/selectableItemBackgroundBorderless"
+    card_view:cardCornerRadius="3sp"
+    card_view:cardElevation="5sp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_main_card_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/tv_card_main_1_title"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img_main_card_1"
+
+            android:text="COolness"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/tv_card_main1_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_card_main_1_title"
+
+            android:text="is Awesomeness" />
+
+        <Button
+            android:id="@+id/btn_card_main1_action1"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_card_main1_subtitle"
+            android:text="Anhything else"
+            android:textColor="@color/colorAccent" />
+
+        <Button
+            android:id="@+id/btn_card_main1_action2"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_card_main1_subtitle"
+            android:layout_toEndOf="@id/btn_card_main1_action1"
+            android:text="Just ask"
+            android:textColor="@color/colorAccent" />
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

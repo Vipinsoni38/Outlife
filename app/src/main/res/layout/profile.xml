@@ -36,7 +36,7 @@
             android:text="Vipin Soni"
             android:id="@+id/profile_name"
             android:layout_centerHorizontal="true"
-            android:textSize="24sp"
+            android:textSize="29sp"
             android:textColor="#000000"
 
             />
@@ -45,20 +45,145 @@
     android:layout_height="18dp"
     android:layout_marginTop="10dp"
     android:layout_marginLeft="4dp"
+    android:id="@+id/nameedit"
     android:src="@drawable/pencil_edit"
     android:layout_toRightOf="@+id/profile_name"/>
 
             </RelativeLayout>
-
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
 <TextView
     android:layout_width="270dp"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
+    android:layout_centerHorizontal="true"
+    android:textSize="14sp"
+
     android:text="a short bio.
      .djkdnkjsnk dkjsnkjdsn kdjnjkdsnndkj ksdjdsjkndkj kjsdndjnkdjs jdkndjknds kjdnkjs kjdnsnkdj kjdsnkj dkjd ksjn "
     android:layout_gravity="center_horizontal"
     android:gravity="center_horizontal"
     android:id="@+id/bio"/>
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/bioedit"
+                    android:layout_marginLeft="4dp"
+                    android:src="@drawable/pencil_edit"
+                    android:layout_toRightOf="@+id/bio"/>
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_horizontal"
+                >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="19sp"
+        android:text="Lives In : "
+        android:gravity="center_horizontal"
+        android:id="@+id/livesin"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:textColor="#101010"
+                    android:textStyle="bold"
+                    android:textSize="19sp"
+
+                    android:text="Suratgarh"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/place"
+                    android:layout_toRightOf="@+id/livesin"/>
+
+</RelativeLayout>
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_horizontal"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:textSize="19sp"
+
+                    android:layout_centerHorizontal="true"
+
+                    android:text="Profession : "
+                    android:gravity="center_horizontal"
+                    android:id="@+id/Profession"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:textColor="#101010"
+                    android:textStyle="bold"
+                    android:textSize="19sp"
+
+                    android:text="Student"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/pro"
+                    android:layout_toRightOf="@+id/Profession"/>
+
+            </RelativeLayout>
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_horizontal"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:textColor="#101010"
+                    android:textStyle="bold"
+                    android:textSize="19sp"
+
+                    android:text="Interest"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/interest"
+                    />
+
+                <Button
+                    android:id="@+id/interestbtn"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4sp"
+                    android:textSize="19sp"
+                    android:layout_below="@id/tv_card_main1_subtitle"
+                    android:text="Select It"
+                    android:textColor="#e65100"
+                    android:layout_toRightOf="@+id/interest"/>
+
+            </RelativeLayout>
 
 
 
