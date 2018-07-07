@@ -19,6 +19,8 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,6 +31,9 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -69,7 +74,33 @@ public class Login_main extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.e("error check", "001");
+                GraphRequest request = GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(
+                                    JSONObject object,
+                                    GraphResponse response) {
 
+                                try {
+                                    Log.e("bla",object.getString("name"));
+                                    SharedPreferences sharedPreferences2=getSharedPreferences("user_data",MODE_PRIVATE);
+                                    SharedPreferences.Editor editor2=sharedPreferences2.edit();
+                                    editor2.putString("name",object.getString("name"));
+                                    editor2.commit();
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+
+                                // Application code
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "name");
+                request.setParameters(parameters);
+                request.executeAsync();
                 handleFacebookAccessToken(loginResult.getAccessToken());
 
             }
@@ -114,7 +145,12 @@ public class Login_main extends AppCompatActivity {
                             SharedPreferences sharedPreferences=getSharedPreferences("login",MODE_PRIVATE);
                             SharedPreferences.Editor editor=sharedPreferences.edit();
                             editor.putBoolean("IsLogin",true);
+                            editor.putString("UID",user.getUid());
                             editor.commit();
+
+
+
+
                             progressDialog.dismiss();
                             finish();
                         } else {
