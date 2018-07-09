@@ -12,10 +12,13 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,7 +43,10 @@ public class profile extends Fragment {
     Button interest,update;
     FirebaseDatabase database;
     DatabaseReference reference;
+    Spinner statespinner,cityspinner;
     String UID,bio_text;
+    String[] objects={"Rajasthan","UP","Bla bla"};
+
     ImageView nameedit,bioedit;
     TextView profile_name,bio,place,profession;
 
@@ -70,11 +76,67 @@ public class profile extends Fragment {
         bio.setText(bio_text);
         place=v.findViewById(R.id.place);
         place.setText(sharedPreferences2.getString("place","-not mentioned-"));
+        place.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder placeselector=new AlertDialog.Builder(getContext());
+                View dialogview=getActivity().getLayoutInflater().inflate(R.layout.dialog_place,null);
+                placeselector.setView(dialogview);
+                placeselector.setTitle("Select City")
+                .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+
+                    reference.child("place").setValue("something Something").addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(getContext(),"Place Edit Complete",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+
+                    }
+                })
+                .setNegativeButton("Cancel",null);
+                placeselector.show();
+
+
+            }
+        });
 
 
 
+        profession=v.findViewById(R.id.pro);
+        profession.setText(sharedPreferences2.getString("pro","-not mentioned-"));
+        profession.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder proselector=new AlertDialog.Builder(getContext());
+                View dialogview=getActivity().getLayoutInflater().inflate(R.layout.dialog_place,null);
+                proselector.setView(dialogview);
+                proselector.setTitle("Select Profession")
+                        .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
 
+                                reference.child("pro").setValue("some bla bla").addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        Toast.makeText(getContext(),"Profession Edit Complete",Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+
+                            }
+                        })
+                        .setNegativeButton("Cancel",null);
+                proselector.show();
+
+
+            }
+        });
 
 
 
@@ -93,7 +155,19 @@ public class profile extends Fragment {
                 new AlertDialog.Builder(getContext())
                         .setTitle("Select one")
                         .setMultiChoiceItems(multiChoiceItems, checkedItems, null)
-                        .setPositiveButton("Ok", null)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                reference.child("interest").setValue("").addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+
+                                        Toast.makeText(getContext(),"Interest Edit Complete",Toast.LENGTH_SHORT).show();
+
+                                    }
+                                });
+                            }
+                        })
                         .setNegativeButton("Cancel", null)
                         .show();
             }
