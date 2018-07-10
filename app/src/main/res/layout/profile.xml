@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10sp"
-            android:text="Vipin Soni"
+            android:text="Loading..."
             android:id="@+id/profile_name"
             android:layout_centerHorizontal="true"
             android:textSize="29sp"
@@ -92,6 +92,7 @@
         android:layout_marginTop="15dp"
         android:layout_centerHorizontal="true"
         android:textSize="19sp"
+        android:layout_centerVertical="true"
         android:text="Lives In : "
         android:gravity="center_horizontal"
         android:id="@+id/livesin"/>
@@ -108,6 +109,8 @@
                     android:layout_gravity="center_horizontal"
                     android:gravity="center_horizontal"
                     android:id="@+id/place"
+                    android:layout_centerVertical="true"
+
                     android:layout_toRightOf="@+id/livesin"/>
 
 </RelativeLayout>
@@ -128,6 +131,8 @@
                     android:textSize="19sp"
 
                     android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+
 
                     android:text="Profession : "
                     android:gravity="center_horizontal"
@@ -140,6 +145,8 @@
                     android:textColor="#101010"
                     android:textStyle="bold"
                     android:textSize="19sp"
+                    android:layout_centerVertical="true"
+
 
                     android:text="Student"
                     android:layout_gravity="center_horizontal"
@@ -186,17 +193,6 @@
             </RelativeLayout>
 
 
-            <Button
-                android:id="@+id/update"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4sp"
-                android:textSize="20sp"
-                android:text="Update Info"
-                android:layout_gravity="center_horizontal"
-                android:textColor="#1b5e20"
-                />
 
 
         </LinearLayout>

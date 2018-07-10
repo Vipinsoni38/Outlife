@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">OutLife</string>
-    <string name="facebook_app_id">559834651080792</string>
-    <string name="fb_login_protocol_scheme">fb559834651080792</string>
+    <string name="facebook_app_id">2148742545363528</string>
+    <string name="fb_login_protocol_scheme">fb2148742545363528</string>
+
 
 </resources>

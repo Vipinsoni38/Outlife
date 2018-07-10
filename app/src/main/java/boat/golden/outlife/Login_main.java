@@ -50,7 +50,7 @@ public class Login_main extends AppCompatActivity {
         mAuth=FirebaseAuth.getInstance();
 
 //--fb Key Hash
-/*
+
             try {
                 PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
                 for (Signature signature : info.signatures) {
@@ -63,7 +63,7 @@ public class Login_main extends AppCompatActivity {
             } catch (Exception e) {
             }
 
-*/
+
 
 
         flogin=findViewById(R.id.login_button);
@@ -115,6 +115,7 @@ public class Login_main extends AppCompatActivity {
             @Override
             public void onError(FacebookException error) {
                 Toast.makeText(Login_main.this,"Unexceptional Error",Toast.LENGTH_SHORT).show();
+                Log.e("error fb",error.toString());
                 // ...
             }
         });
