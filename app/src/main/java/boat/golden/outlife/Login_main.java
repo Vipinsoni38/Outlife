@@ -83,7 +83,6 @@ public class Login_main extends AppCompatActivity {
                                     GraphResponse response) {
 
                                 try {
-                                    Log.e("bla",object.getString("name"));
                                     SharedPreferences sharedPreferences2=getSharedPreferences("user_data",MODE_PRIVATE);
                                     SharedPreferences.Editor editor2=sharedPreferences2.edit();
                                     editor2.putString("name",object.getString("name"));
@@ -158,6 +157,7 @@ public class Login_main extends AppCompatActivity {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(Login_main.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
                         }
 
                         // ...

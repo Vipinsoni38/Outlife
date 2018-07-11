@@ -10,11 +10,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -55,6 +57,7 @@ public class profile extends Fragment {
     FirebaseDatabase database;
     DatabaseReference reference;
     Spinner statespinner,cityspinner;
+    AutoCompleteTextView autocomplete;
     String UID,bio_text,user_name;
     String[] objects={"Rajasthan","UP","Bla bla"};
 
@@ -92,6 +95,7 @@ public class profile extends Fragment {
             public void onClick(View v) {
                 AlertDialog.Builder placeselector=new AlertDialog.Builder(getContext());
                 View dialogview=getActivity().getLayoutInflater().inflate(R.layout.dialog_place,null);
+                autocomplete=dialogview.findViewById(R.id.autocomplete);
                 placeselector.setView(dialogview);
                 placeselector.setTitle("Select City")
                 .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
@@ -99,10 +103,13 @@ public class profile extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
 
 
-                    reference.child("place").setValue("something Something").addOnCompleteListener(new OnCompleteListener<Void>() {
+                    reference.child("place").setValue(autocomplete.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(getContext(),"Place Edit Complete",Toast.LENGTH_SHORT).show();
+                            editor2.putString("place",autocomplete.getText().toString());
+                            editor2.commit();
+                            place.setText(autocomplete.getText().toString());
                         }
                     });
 
@@ -123,20 +130,38 @@ public class profile extends Fragment {
         profession.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final String[] names={"Student","Businessman","Employee"};
                 AlertDialog.Builder proselector=new AlertDialog.Builder(getContext());
                 View dialogview=getActivity().getLayoutInflater().inflate(R.layout.dialog_profession,null);
                 proselector.setView(dialogview);
+                final int[] pos = new int[1];
                 Spinner spinner=dialogview.findViewById(R.id.spinner);
-                List<String> list=new  ArrayList<String>();
+                ArrayAdapter aa = new ArrayAdapter(getContext(),android.R.layout.simple_spinner_item,names);
+                aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner.setAdapter(aa);
+                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        pos[0] =position;
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
                 proselector.setTitle("Select Profession")
                         .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
 
-                                reference.child("pro").setValue("some bla bla").addOnCompleteListener(new OnCompleteListener<Void>() {
+                                reference.child("pro").setValue(names[pos[0]]).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
+                                        editor2.putString("pro",names[pos[0]]);
+                                        editor2.commit();
+                                        profession.setText(names[pos[0]]);
                                         Toast.makeText(getContext(),"Profession Edit Complete",Toast.LENGTH_SHORT).show();
                                     }
                                 });
@@ -163,15 +188,38 @@ public class profile extends Fragment {
             @Override
             public void onClick(View v) {
 
-                String[] multiChoiceItems = {"Mountains","Oceans","Beach","Dark","Bla bla"};
-                boolean[] checkedItems = {true, false, false, false, false};
+                final String[] multiChoiceItems = {"Sightseeing","Trekking","Adventures","Concert/Festival","Road Trip","Shopping"};
+                final boolean[] checkedones = new boolean[]{
+                        false,
+                        false,
+                        false,
+                        false,
+                        false,
+                        false
+
+                };
                 new AlertDialog.Builder(getContext())
                         .setTitle("Select one")
-                        .setMultiChoiceItems(multiChoiceItems, null, null)
+                        .setMultiChoiceItems(multiChoiceItems, checkedones, new DialogInterface.OnMultiChoiceClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                                checkedones[which]=isChecked;
+
+
+                            }
+                        })
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                reference.child("interest").setValue("").addOnCompleteListener(new OnCompleteListener<Void>() {
+                            String bla="";
+                                for (int i = 0; i<checkedones.length; i++){
+                                    boolean checked = checkedones[i];
+                                    if (checked) {
+                                       bla=bla+multiChoiceItems[i]+" ";
+                                    }
+                                }
+
+                                reference.child("interest").setValue(bla).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
 
@@ -246,7 +294,6 @@ public class profile extends Fragment {
 
 
 
-
         bioedit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -299,7 +346,6 @@ public class profile extends Fragment {
             }
 
         });
-
 
         if (!sharedPreferences2.getBoolean("first_login",false))
         {checkforfirsttimeuser();
