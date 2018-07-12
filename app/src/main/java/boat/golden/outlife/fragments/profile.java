@@ -2,11 +2,16 @@ package boat.golden.outlife.fragments;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -26,6 +31,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -33,10 +40,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +58,7 @@ import boat.golden.outlife.MainActivity;
 import boat.golden.outlife.R;
 import boat.golden.outlife.profile_datatype;
 
+import static android.app.Activity.RESULT_OK;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
@@ -58,11 +73,13 @@ public class profile extends Fragment {
     DatabaseReference reference;
     Spinner statespinner,cityspinner;
     AutoCompleteTextView autocomplete;
+    StorageReference storageReference;
     String UID,bio_text,user_name;
-    String[] objects={"Rajasthan","UP","Bla bla"};
 
-    ImageView nameedit,bioedit;
+    ImageView nameedit,bioedit,profile_image;
     TextView profile_name,bio,place,profession;
+    Bitmap bitmap;
+    Uri uri;
 
     @Nullable
     @Override
@@ -88,6 +105,52 @@ public class profile extends Fragment {
         profile_name.setText(user_name);
         bio_text=sharedPreferences2.getString("bio","HI this is my bio");
         bio.setText(bio_text);
+
+
+        profile_image=v.findViewById(R.id.profile_image);
+        profile_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder profileoption=new AlertDialog.Builder(getContext());
+                View lo=getActivity().getLayoutInflater().inflate(R.layout.profile_options,null);
+                profileoption.setView(lo);
+                Button view,edit;
+                view=lo.findViewById(R.id.view_pic);
+                edit=lo.findViewById(R.id.edit_pic);
+                edit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+
+                        Intent i = new Intent();
+                        i.setAction(Intent.ACTION_GET_CONTENT);
+                        i.setType("image/*");
+                        startActivityForResult(i, 101);
+                    }
+                });
+                profileoption.show();
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         place=v.findViewById(R.id.place);
         place.setText(sharedPreferences2.getString("place","-not mentioned-"));
         place.setOnClickListener(new View.OnClickListener() {
@@ -468,4 +531,95 @@ public class profile extends Fragment {
 
 
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==101&&resultCode==RESULT_OK)
+        {
+            try {
+                uri = data.getData();
+                ContentResolver resolver = getActivity().getContentResolver();
+                bitmap = MediaStore.Images.Media.getBitmap(resolver, uri);
+
+                profile_image.setImageBitmap(bitmap);
+                upload();
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            }
+        }
+
+
+
+
+
+    }
+
+    private void upload() {
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setTitle("Image Uploading...");
+        progressDialog.show();
+
+        storageReference = FirebaseStorage.getInstance().getReference();
+        StorageReference ref;
+        ref = storageReference.child("profile_pic/" + UID  + ".jpg");
+
+
+
+
+
+
+        profile_image.setDrawingCacheEnabled(true);
+        profile_image.buildDrawingCache();
+        //Bitmap bitmap = imageView.getDrawingCache();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 55, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = ref.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+                progressDialog.dismiss();
+
+
+                Toast.makeText(getContext(), "Image upload Failed !", Toast.LENGTH_SHORT).show();
+
+
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                Toast.makeText(getContext(), "Image uploaded", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+
+
+
+
+
+
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot
+                        .getTotalByteCount());
+                progressDialog.setMessage("Uploaded " + (int) progress + "%");
+            }
+        });
+
+
+
+
+
+
+
+
+
+    }
+
+
 }

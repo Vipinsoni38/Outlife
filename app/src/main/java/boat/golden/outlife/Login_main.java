@@ -86,6 +86,7 @@ public class Login_main extends AppCompatActivity {
                                     SharedPreferences sharedPreferences2=getSharedPreferences("user_data",MODE_PRIVATE);
                                     SharedPreferences.Editor editor2=sharedPreferences2.edit();
                                     editor2.putString("name",object.getString("name"));
+                                    Log.e("tag",object.toString());
                                     editor2.commit();
 
                                 } catch (JSONException e) {

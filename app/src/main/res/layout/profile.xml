@@ -23,7 +23,8 @@
     android:src="@drawable/capture"
     android:layout_gravity="center_horizontal"
     android:padding="2dp"
-    android:layout_margin="2dp"/>
+    android:layout_margin="2dp"
+    android:id="@+id/profile_image"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
